@@ -1,0 +1,722 @@
+//Vaibhav Raut
+
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 21
+Server version: 8.0.35 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| mysql              |
+| payroll_service    |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+//UC1:
+
+mysql> CREATE DATABASE address_book_service;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| address_book_service |
+| information_schema   |
+| mydb                 |
+| mysql                |
+| payroll_service      |
+| performance_schema   |
+| sys                  |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> use address_book_service;
+Database changed
+mysql> select database();
++----------------------+
+| database()           |
++----------------------+
+| address_book_service |
++----------------------+
+1 row in set (0.00 sec)
+
+//UC2:
+
+mysql> CREATE TABLE address_book
+    -> (
+    ->  first_name              VARCHAR(30) NOT NULL,
+    ->  last_name               VARCHAR(30) NOT NULL,
+    ->  address                 VARCHAR(150) NOT NULL,
+    ->  city                    VARCHAR(50) NOT NULL,
+    ->  state                   VARCHAR(50) NOT NULL,
+    ->  zip                     INT(10) NOT NULL,
+    ->  phone_number            VARCHAR(15) NOT NULL,
+    ->  email                   VARCHAR(50) NOT NULL
+    -> );
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+
+mysql> SELECT * FROM address_book;
+Empty set (0.00 sec)
+
+mysql> DESCRIBE address_book;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| first_name   | varchar(30)  | NO   |     | NULL    |       |
+| last_name    | varchar(30)  | NO   |     | NULL    |       |
+| address      | varchar(150) | NO   |     | NULL    |       |
+| city         | varchar(50)  | NO   |     | NULL    |       |
+| state        | varchar(50)  | NO   |     | NULL    |       |
+| zip          | int          | NO   |     | NULL    |       |
+| phone_number | int          | NO   |     | NULL    |       |
+| email        | varchar(50)  | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+//UC3:
+
+mysql> INSERT INTO address_book VALUES ('Vaibhav', 'Raut', 'ABP Chowk', 'Pune', 'MH', 411002, '9579354301', 'vaibhav.raut851@gmail.com');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO address_book VALUES ('Prapti', 'Raut', 'ABP Chowk', 'Pune', 'MH', 411002, '9675384601', 'prapti.raut985@gmail.com');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO address_book VALUES ('Siddhi', 'Wanakhade', 'CSM Chowk', 'Mumbai', 'MH', 411654, '8006386551', 'siddhiwanakhade@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO address_book VALUES ('Vaishnavi', 'Raut', 'XYZ treet', 'Indore', 'MP', 468545, '9065687451', 'vaishnavi.raut@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO address_book VALUES ('Pranav', 'Raut', 'CSM Colany', 'Indore', 'MP', 454605, '9158215917', 'pranav.raut@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO address_book VALUES ('Anushka', 'Wanakhade', 'WST Street', 'Mumbai', 'MH', 416586, '9906386551', 'anushkawanakhade@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM address_book;
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                      |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| Vaibhav    | Raut      | ABP Chowk  | Pune   | MH    | 411002 | 9579354301   | vaibhav.raut851@gmail.com  |
+| Prapti     | Raut      | ABP Chowk  | Pune   | MH    | 411002 | 9675384601   | prapti.raut985@gmail.com   |
+| Siddhi     | Wanakhade | CSM Chowk  | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   |
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      |
+| Anushka    | Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+6 rows in set (0.00 sec)
+
+//UC4:
+
+mysql> UPDATE address_book
+    -> SET zip = '411001'
+    -> WHERE first_name = 'Vaibhav' AND last_name = 'Raut';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                      |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| Vaibhav    | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  |
+| Prapti     | Raut      | ABP Chowk  | Pune   | MH    | 411002 | 9675384601   | prapti.raut985@gmail.com   |
+| Siddhi     | Wanakhade | CSM Chowk  | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   |
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      |
+| Anushka    | Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE address_book
+    -> SET zip = '411001'
+    -> WHERE first_name = 'Prapti' AND last_name = 'Raut';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                      |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| Vaibhav    | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  |
+| Prapti     | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   |
+| Siddhi     | Wanakhade | CSM Chowk  | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   |
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      |
+| Anushka    | Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE address_book
+    -> SET address = 'CSM Street'
+    -> WHERE first_name = 'Siddhi' AND last_name = 'Wanakhade';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                      |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| Vaibhav    | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  |
+| Prapti     | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   |
+| Siddhi     | Wanakhade | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   |
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      |
+| Anushka    | Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+6 rows in set (0.00 sec)
+
+//UC5:
+
+mysql> DELETE FROM address_book
+    -> WHERE first_name = 'Anushka' AND last_name = 'Wanakhade';
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM address_book;
++------------+-----------+------------+--------+-------+--------+--------------+---------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                     |
++------------+-----------+------------+--------+-------+--------+--------------+---------------------------+
+| Vaibhav    | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com |
+| Prapti     | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com  |
+| Siddhi     | Wanakhade | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com |
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com  |
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com     |
++------------+-----------+------------+--------+-------+--------+--------------+---------------------------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO address_book VALUES ('Anushka', 'Wanakhade', 'WST Street', 'Mumbai', 'MH', 416586, '9906386551', 'anushkawanakhade@gmail.com');
+Query OK, 1 row affected (0.03 sec)
+
+//UC6:
+
+mysql> SELECT * FROM address_book
+    -> WHERE city = 'Pune';
++------------+-----------+-----------+------+-------+--------+--------------+---------------------------+
+| first_name | last_name | address   | city | state | zip    | phone_number | email                     |
++------------+-----------+-----------+------+-------+--------+--------------+---------------------------+
+| Vaibhav    | Raut      | ABP Chowk | Pune | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com |
+| Prapti     | Raut      | ABP Chowk | Pune | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com  |
++------------+-----------+-----------+------+-------+--------+--------------+---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM address_book
+    -> WHERE city = 'Indore';
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                    |
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com |
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com    |
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM address_book
+    -> WHERE city = 'Mumbai';
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                      |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| Siddhi     | Wanakhade | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+| Anushka    | Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM address_book
+    -> WHERE state = 'MH';
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                      |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| Vaibhav    | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  |
+| Prapti     | Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   |
+| Siddhi     | Wanakhade | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+| Anushka    | Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM address_book
+    -> WHERE state = 'MP';
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                    |
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com |
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com    |
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+2 rows in set (0.00 sec)
+
+//UC7:
+
+mysql> SELECT count(*) FROM address_book
+    -> WHERE city = 'Pune';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT count(*) FROM address_book
+    -> WHERE city = 'Mumbai';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT count(*) FROM address_book
+    -> WHERE city = 'Indore';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT count(*) FROM address_book
+    -> WHERE state = 'MH';
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT count(*) FROM address_book
+    -> WHERE state = 'MP';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+//UC8:
+
+mysql> select * from address_book
+    -> where city = 'Pune' order by first_name;
++------------+-----------+-----------+------+-------+--------+--------------+---------------------------+
+| first_name | last_name | address   | city | state | zip    | phone_number | email                     |
++------------+-----------+-----------+------+-------+--------+--------------+---------------------------+
+| Prapti     | Raut      | ABP Chowk | Pune | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com  |
+| Vaibhav    | Raut      | ABP Chowk | Pune | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com |
++------------+-----------+-----------+------+-------+--------+--------------+---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from address_book
+    -> where city = 'Mumbai' order by first_name;
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                      |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+| Anushka    | Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
+| Siddhi     | Wanakhade | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
++------------+-----------+------------+--------+-------+--------+--------------+----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from address_book
+    -> where city = 'Indore' order by first_name;
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+| first_name | last_name | address    | city   | state | zip    | phone_number | email                    |
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+| Pranav     | Raut      | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com    |
+| Vaishnavi  | Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com |
++------------+-----------+------------+--------+-------+--------+--------------+--------------------------+
+2 rows in set (0.00 sec)
+
+//UC9:
+
+mysql> alter table address_book
+    -> add column name varchar(30) after first_name,
+    -> add columm type varchar(30) after email;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update address_book
+    -> set name = concat(name, ' ' , last_name);
+Query OK, 6 rows affected (0.03 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> alter table address_book
+    -> drop first_name;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table address_book
+    -> drop last_name;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++---------------------+------------+-----------+------------+--------+--------------+----------------------------+------+
+| name                | address    | city      | state      | zip    | phone_number | email                      | type |
++---------------------+------------+-----------+------------+--------+--------------+----------------------------+------+
+| Vaibhav Raut        | ABP Chowk  | Pune      | MH         | 411001 | 9579354301   | vaibhav.raut851@gmail.com  |      |
+| Prapti Raut         | ABP Chowk  | Pune      | MH         | 411001 | 9675384601   | prapti.raut985@gmail.com   |      |
+| Siddhi Wanakhade    | CSM Street | Mumbai    | MH         | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |      |
+| Vaishnavi Raut      | XYZ treet  | Indore    | MP         | 468545 | 9065687451   | vaishnavi.raut@gmail.com   |      |
+| Pranav Raut         | CSM Colany | Indore    | MP         | 454605 | 9158215917   | pranav.raut@gmail.com      |      |
+| Anushka Wanakhade   | WST Street | Mumbai    | MH         | 416586 | 9906386551   | anushkawanakhade@gmail.com |      |
++---------------------+------------+-----------+------------+--------+--------------+----------------------------+------+
+6 rows in set (0.00 sec)
+
+mysql> update address_book
+    -> set type = 'Family'
+    -> where name = 'Vaibhav' or name = 'Prapti' or name = 'Anushka';
+Query OK, 3 rows affected (0.03 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from address_book;
++---------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+| name                | address    | city   | state | zip    | phone_number | email                      | type   |
++---------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+| Vaibhav Raut        | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  | Family |
+| Prapti Raut         | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   | Family |
+| Siddhi Wanakhade    | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |        |
+| Vaishnavi Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   |        |
+| Pranav Raut         | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      |        |
+| Anushka Wanakhade   | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com | Family |
++---------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> update address_book
+    -> set type = 'Friend'
+    -> where name = 'Siddhi' or name = 'Vaishnavi' or name = 'Pranav';
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from address_book;
++---------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+| name                | address    | city   | state | zip    | phone_number | email                      | type   |
++---------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+| Vaibhav Raut        | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  | Family |
+| Prapti Raut         | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   | Family |
+| Siddhi Wanakhade    | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  | Friend |
+| Vaishnavi Raut      | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   | Friend |
+| Pranav Raut         | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      | Friend |
+| Anushka Wanakhade   | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com | Family |
++---------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+6 rows in set (0.00 sec)
+
+//UC10:
+
+mysql> select type, count(*) from address_book
+    -> group by type;
++--------+----------+
+| type   | count(*) |
++--------+----------+
+| Family |        3 |
+| Friend |        3 |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select city, count(*) from address_book
+    -> group by city;
++--------+----------+
+| city   | count(*) |
++--------+----------+
+| Pune   |        2 |
+| Mumbai |        2 |
+| Indore |        2 |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select state, count(*) from address_book
+    -> group by state;
++-------+----------+
+| state | count(*) |
++-------+----------+
+| MH    |        4 |
+| MP    |        2 |
++-------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select last_name, count(*) from address_book
+    -> group by last_name;
++-----------+----------+
+| last_name | count(*) |
++-----------+----------+
+| Raut      |        4 |
+| Wanakhade |        2 |
++-----------+----------+
+2 rows in set (0.00 sec)
+
+
+//UC11:
+
+mysql> INSERT INTO address_book (name, address, city, state, zip, phone_number, email, type)
+    -> values
+    -> ('Vikram Singh', 'PUC Street', 'Jaipur', 'RJ', 546987, ' 9587643210', 'vikramsingh@gmail.com', 'Family');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO address_book (name, address, city, state, zip, phone_number, email, type)
+    -> values
+    -> ('Vikram Singh', 'PUC Street', 'Jaipur', 'RJ', 546987, ' 9587643210', 'vikramsingh@gmail.com', 'Friend');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from address_book;
++-------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+| name              | address    | city   | state | zip    | phone_number | email                      | type   |
++-------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+| Vaibhav Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  | Family |
+| Prapti Raut       | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   | Family |
+| Siddhi Wanakhade  | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  | Friend |
+| Vaishnavi Raut    | XYZ treet  | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   | Friend |
+| Pranav Raut       | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      | Friend |
+| Anushka Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com | Family |
+| Vikram Singh      | PUC Street | Jaipur | RJ    | 546987 | 9587643210   | vikramsingh@gmail.com      | Family |
+| Vikram Singh      | PUC Street | Jaipur | RJ    | 546987 | 9587643210   | vikramsingh@gmail.com      | Friend |
++-------------------+------------+--------+-------+--------+--------------+----------------------------+--------+
+8 rows in set (0.04 sec)
+
+
+//UC12:
+
+mysql> create table person
+    -> (
+    ->  person_id int primary key not null auto_increment,
+    ->  name varchar(60) not null,
+    ->  address varchar(150) not null,
+    ->  city varchar(50) not null,
+    ->  state varchar(50) not null,
+    ->  zip int not null,
+    ->  phone_number varchar(15) not null,
+    ->  email varchar(50) not null
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table contact
+    -> (
+    ->  contact_id int auto_increment primary key,
+    ->  name varchar(60) not null,
+    ->  type varchar(50) not null,
+    ->  foreign key(contact_id) references person(person_id)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into person (name, address, city, state, zip, phone_number, email)
+    -> values
+    -> ('Vaibhav Raut', 'ABP Chowk', 'Pune', 'MH', 411001, '9579354301', 'vaibhav.raut851@gmail.com'),
+    -> ('Prapti Raut', 'ABP Chowk', 'Pune', 'MH', 411001, '9675384601', 'prapti.raut985@gmail.com'),
+    -> ('Siddhi Wanakhade', 'CSM Street', 'Mumbai', 'MH', 411654, '8006386551', 'siddhiwanakhade@gmail.com'),
+    -> ('Vaishnavi Raut', 'XYZ Street', 'Indore', 'MP', 468545, '9065687451', 'vaishnavi.raut@gmail.com'),
+    -> ('Pranav Raut', 'CSM Colany', 'Indore', 'MP', 454605, '9158215917', 'pranav.raut@gmail.com'),
+    -> ('Anushka Wanakhade', 'WST Street', 'Mumbai', 'MH', 416586, '9906386551', 'anushkawanakhade@gmail.com');
+Query OK, 6 rows affected (0.05 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from person;
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+| person_id | name              | address    | city   | state | zip    | phone_number | email                      |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+|         1 | Vaibhav Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  |
+|         2 | Prapti Raut       | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   |
+|         3 | Siddhi Wanakhade  | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+|         4 | Vaishnavi Raut    | XYZ Street | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com   |
+|         5 | Pranav Raut       | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com      |
+|         6 | Anushka Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into contact(contact_id, name, type)
+    -> values
+    ->  (1, "Vaibhav Raut", "Family"),
+    ->  (2, "Prapti Raut", "Family"),
+    ->  (3, "Siddhi Wanakhade", "Friend"),
+    ->  (4, "Vaishnavi Raut", "Friend"),
+    ->  (5, "Pranav Raut", "Friend"),
+    ->  (6, "Anushka Wanakhade", "Family");
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from contact;
++------------+-------------------+--------+
+| contact_id | name              | type   |
++------------+-------------------+--------+
+|          1 | Vaibhav Raut      | Family |
+|          2 | Prapti Raut       | Family |
+|          3 | Siddhi Wanakhade  | Friend |
+|          4 | Vaishnavi Raut    | Friend |
+|          5 | Pranav Raut       | Friend |
+|          6 | Anushka Wanakhade | Family |
++------------+-------------------+--------+
+6 rows in set (0.00 sec)
+
+//UC13:
+
+mysql> select * from person
+    -> where city = "Pune";
++-----------+--------------+-----------+------+-------+--------+--------------+---------------------------+
+| person_id | name         | address   | city | state | zip    | phone_number | email                     |
++-----------+--------------+-----------+------+-------+--------+--------------+---------------------------+
+|         1 | Vaibhav Raut | ABP Chowk | Pune | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com |
+|         2 | Prapti Raut  | ABP Chowk | Pune | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com  |
++-----------+--------------+-----------+------+-------+--------+--------------+---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from person
+    -> where city = "Mumbai";
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+| person_id | name              | address    | city   | state | zip    | phone_number | email                      |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+|         3 | Siddhi Wanakhade  | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+|         6 | Anushka Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from person
+    -> where city = "Indore";
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+| person_id | name           | address    | city   | state | zip    | phone_number | email                    |
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+|         4 | Vaishnavi Raut | XYZ Street | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com |
+|         5 | Pranav Raut    | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com    |
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from person
+    -> where state = "MH";
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+| person_id | name              | address    | city   | state | zip    | phone_number | email                      |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+|         1 | Vaibhav Raut      | ABP Chowk  | Pune   | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com  |
+|         2 | Prapti Raut       | ABP Chowk  | Pune   | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com   |
+|         3 | Siddhi Wanakhade  | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
+|         6 | Anushka Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from person
+    -> where state = "MP";
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+| person_id | name           | address    | city   | state | zip    | phone_number | email                    |
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+|         4 | Vaishnavi Raut | XYZ Street | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com |
+|         5 | Pranav Raut    | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com    |
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select count(*) from person
+    -> where city = "Pune";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select count(*) from person
+    -> where city = "Mumbai";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from person
+    -> where city = "Indore";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from person
+    -> where state = "MH";
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from person
+    -> where state = "MH";
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from person
+    -> where state = "MP";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from person
+    -> where city = "Pune" order by name;
++-----------+--------------+-----------+------+-------+--------+--------------+---------------------------+
+| person_id | name         | address   | city | state | zip    | phone_number | email                     |
++-----------+--------------+-----------+------+-------+--------+--------------+---------------------------+
+|         2 | Prapti Raut  | ABP Chowk | Pune | MH    | 411001 | 9675384601   | prapti.raut985@gmail.com  |
+|         1 | Vaibhav Raut | ABP Chowk | Pune | MH    | 411001 | 9579354301   | vaibhav.raut851@gmail.com |
++-----------+--------------+-----------+------+-------+--------+--------------+---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from person
+    -> where city = "Mumbai" order by name;
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+| person_id | name              | address    | city   | state | zip    | phone_number | email                      |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+|         6 | Anushka Wanakhade | WST Street | Mumbai | MH    | 416586 | 9906386551   | anushkawanakhade@gmail.com |
+|         3 | Siddhi Wanakhade  | CSM Street | Mumbai | MH    | 411654 | 8006386551   | siddhiwanakhade@gmail.com  |
++-----------+-------------------+------------+--------+-------+--------+--------------+----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from person
+    -> where city = "Indore" order by name;
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+| person_id | name           | address    | city   | state | zip    | phone_number | email                    |
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+|         5 | Pranav Raut    | CSM Colany | Indore | MP    | 454605 | 9158215917   | pranav.raut@gmail.com    |
+|         4 | Vaishnavi Raut | XYZ Street | Indore | MP    | 468545 | 9065687451   | vaishnavi.raut@gmail.com |
++-----------+----------------+------------+--------+-------+--------+--------------+--------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select type, count(*) from contact
+    -> group by type;
++--------+----------+
+| type   | count(*) |
++--------+----------+
+| Family |        3 |
+| Friend |        3 |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select state, count(*) from person
+    -> group by state;
++-------+----------+
+| state | count(*) |
++-------+----------+
+| MH    |        4 |
+| MP    |        2 |
++-------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select city, count(*) from person
+    -> group by city;
++--------+----------+
+| city   | count(*) |
++--------+----------+
+| Pune   |        2 |
+| Mumbai |        2 |
+| Indore |        2 |
++--------+----------+
+3 rows in set (0.00 sec)
